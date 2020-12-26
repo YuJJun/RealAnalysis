@@ -1,0 +1,225 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+\usepackage{graphicx,float}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
+\usepackage{minted}
+\usemintedstyle{borland}
+\usepackage{biblatex}
+\usepackage{mdframed}
+\usepackage{amsmath}
+\addbibresource{references.bib}
+
+% Title content
+\title{Real Analysis Notes}
+\author{Hyunjun "John" Yoo}
+\date{12/22/20}
+
+\newmdtheoremenv{theo}{Theorem}
+\newtheorem{Example}{Example}[section]
+
+\begin{document}
+
+\maketitle
+
+% Abstract
+\begin{abstract}
+    These are the notes taken from the book \textit{Understanding Analysis} by Stephen Abbott.
+\end{abstract}
+
+% Introduction and Overview
+\section{The Real Numbers}
+"Real mathematics must be justified as art if it can be justified at all."
+
+% Example Subsection
+\subsection{The Irrationality of $\sqrt{2}$}
+
+\begin{theo}
+There is no rational number whose square is 2.
+\end{theo}
+\\ \\
+
+A rational number is any number expressed in the form of $\frac{p}{q}$ such that $p, q \in \mathbb{Z}$. Then, if the theorem above is true, there is never a case where $(\frac{p}{q})^2 = 2$.
+\\ \\
+We prove the theorem by contradiction. Suppose there exists integers $p$ and $q$ such that $(\frac{p}{q})^2 = 2$. We know that $p$ and $q$ have no common factors because we could just write it in lowest terms.
+\\ \\
+This means $p^2 = 2q^2$. Thus, we know that $p$ is an even number. Then, $p = 2r$ for some integer $r$. Then, $p^2 = 2q^2 \Rightarrow 2(2r^2) = q^2$, which implies $q$ is even.
+\\ \\
+But if both $p$ and $q$ are even, they weren't in their lowest terms. Thus, the theorem is proven by contradiction.
+\\ \\
+Back in the Greek era, they didn't know what to do with this discovery, as irrational numbers were anathema to them. But this was the pivotal point of the birth of irrationals, and other number systems that followed.
+\\ \\
+Such is often the case in history. If a result couldn't be explained with current math systems, a new system that could was created.
+\\ \\
+We first start with the natural numbers $\mathbb{N} = \{1, 2, 3, ...\}$. However, if we wish to incorporate the additive identity (0) and inverse (subtractions), then we need
+\\ \\
+\centerline{$\mathbb{Z} = \{...,-3.,-2.-1,0,1,2,3,...\}$}
+\\ \\
+But even $\mathbb{Z}$ isn't complete. Division is not defined in the world of $\mathbb{Z}$, so we made:
+\\ \\
+\centerline{$\mathbb{Q}$: \{all $\frac{p}{q}$ where $p, q \in \mathbb{Z}$ and $q \neq 0$\}}
+\\ \\
+$\mathbb{Q}$ is what we call a \textbf{field}. A field is any set where addition is commutative and well-defined, and has the distributive property $a(b+c) = ab+ac$. An additive identity and inverse must exist for all elements, and multiplicative identities and inverses must exist for all non-zero elements within a field. (Thus, $\mathbb{Z}$ and $\mathbb{N}$ are not fields).
+\\ \\
+However, as shown with $\sqrt{2}$, not every number is within $\mathbb{Q}$. Given a number line of $\mathbb{Q}$, we cannot plot points such as $\sqrt{2}, \sqrt{3}$, etc. Thus, we need another extension to $\mathbb{Q}$, and we call that $\mathbb{R}$, the \textbf{real} numbers.
+\\ \\
+\centerline{$\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q} \subseteq \mathbb{R}$}
+\\ \\
+In a loose description of $\mathbb{R}$, it is basically the result after filling the "gaps" (irrationals) in the $\mathbb{Q}$ number line. But what do we know about irrationals? Do they behave differently? Do they have a pattern? We will come to know the answer.
+
+\subsection{Some Preliminaries}
+
+\subsubsection*{\textit{\underline{Sets}}}
+
+A set is any collection of objects, where the objects are called \textit{elements} of the set.
+\\ \\
+If $x$ is an element of set $A$, then we say $x \in A$. If not, then we write $x \notin A$.
+\\ \\
+Given sets $A$ and $B$, the \textit{union} $A \cup B$ is the set where $x \in A$ or $x \in B$ or both. The \textit{intersection} $A \cap B$ is the set where $x \in A, B$.
+\\ \\
+We can define sets by providing some sort of rule all elements adhere to. For instance: $S = \{r \in \mathbb{Q}: r^2 < 2\}$.
+\\ \\
+The empty set $\emptyset$ is a set containing no elements. If there are sets $E$ and $S$ and $E \cap S = \emptyset$, then $E$ and $S$ are called \textit{disjoint}.
+\\ \\
+We say that $A$ is a subset of $B$, $A \subseteq B$, if every element of $A$ is in $B$. Thus, $A = B$ basically means $A \subseteq B$ and $B \subseteq A$.
+\\ \\
+As given in the example below, we can use the union and intersection operations on infinite sets.
+
+\begin{Example}
+\end{Example}
+\\
+Let 
+\\ \\
+\centerline{$A_1 = \mathbb{N} = \{1, 2, 3, ...\}$}
+\\ 
+\centerline{$A_2 = \{2, 3, 4, ...\}$}
+\\
+\centerline{$A_3 = \{3, 4, 5, ...\}$}
+\\ \\
+where for each $n \in \mathbb{N}$, $A_n = \{n, n+1, n+2, ...\}$.
+\\ \\
+Then, we would get $A_1 \supseteq A_2 \supseteq A_3 \supseteq ...$. We now introduce new notation for infinite unions.
+\\ \\
+\[\bigcup_{n=1}^{\infty} A_{n} = \bigcup_{n \in \mathbb{N}} A_{n} = A_1 \cup A_2 \cup A_3 \cup ...\]
+\\ \\
+Thus, we can see that $\bigcup_{n=1}^{\infty} A_{n} = A_1$, and $\bigcap_{n=1}^{\infty} A_{n} = \emptyset$.
+\\ \\
+Given set $A \subseteq \mathbb{R}$, the complement of $A$, written as $A_c$, is the set of all the elements in $\mathbb{R}$ not in $A$.
+\\ \\
+\centerline{$A^c = \{x \in \mathbb{R}: x \notin A\}$}
+\\ \\
+De Morgan's Laws uses both $A$ and $A^c$.
+\\ \\
+\centerline{$(A \cap B)^c = A^c \cup B^c$ and $(A \cup B)^c = A^c \cap B^c$}.
+\\ \\
+Although the definition of sets in the beginning is fairly sufficient, it is still slightly imprecise. However, such pitfalls will rarely occur in Real Analysis.
+
+\subsubsection*{\textit{\underline{Functions}}}
+
+Given two sets $A$ and $B$, a function $f: A \rightarrow B$ is a rule or mapping that takes each element in $A$ and maps it to a single element in $B$. The set $A$ is the domain of $f$. While the range is not necessarily equal to $B$, it is given by $\{y \in B: y = f(x)$ for some $x \in A \}$ .
+\\ \\
+For example, observe the following function:
+\\ \\
+\[
+  g(x) =
+  \begin{cases}
+                                   1 & \text{if $x \in \mathbb{Q}$} \\
+                                   0 & \text{if $x \notin \mathbb{Q}$} 
+  \end{cases}
+\]
+\\ \\
+As you can see, the domain of $g$ is $\mathbb{R}$, and the range is $\{0, 1\}$. We weren't given an equation, and finding one for $g$ is not obvious. However, according to the definition, $g$ does indeed qualify as a function.
+\\ \\
+\begin{Example}
+Triangle Inequality
+\end{Example}
+\\
+Let us look at the absolute value function $|x|$. It is defined as:
+\\ \\
+\[
+  |x|) =
+  \begin{cases}
+                                   x & \text{if $x \geq 0$} \\
+                                   -x & \text{if $x < 0$} 
+  \end{cases}
+\]
+\\ \\
+We have the following properties: $|ab| = |a||b|$ and $|a+b| \leq |a| + |b|$. The 2nd property is called the triangle inequality, which will be very important later on. Let's see an example:
+\\ \\
+\[
+|a - b| = |(a - b) + (c - b)|
+\]
+\\ \\
+Then, by the triangle inequality:
+\\ \\
+\[
+|(a - c) + (c - b)| \leq |a - c| + |c - b| \Rightarrow |a - b| \leq |a - c| + |c + b|
+\]
+\\ \\
+If we consider $|a - b|$ as the \textit{distance} between $a$ and $b$, then we can see why this inequality is named the triangle inequality.
+
+\subsubsection*{\textit{\underline{Logic and Proofs}}}
+
+A proof is like an essay of sorts, which aims to convince the reader that the proposition is undoubtedly true. Thus, the steps of a proof must logically follow the previous step, or be justified with an agreed-upon set of facts.
+\\ \\
+So far, we have seen one example of a proof, proof by contradiction. This is an indirect proof, which starts off by negating what we would love to prove. Then, it continues until we reach a logical fallacy, indicating our previous assumption was wrong and thus the proposition is true.
+\\ \\
+Let's see an example of a proof.
+
+\begin{theo}
+Two real numbers $a$ and $b$ are equal if and only if for every real number $\epsilon > 0$ if follows that $|a - b| < \epsilon$.
+\end{theo}
+\\ \\
+"If and only if", or iff, means the proposition is true in both directions. According to the theorem above, we must prove:
+
+\begin{itemize}
+  \item If $a = b$, then for every real number $\epsilon > 0$, $|a - b| < \epsilon$.
+  \item If for every real number $\epsilon > 0$, it follows that $|a - b| < \epsilon$, then $a = b$.
+\end{itemize}
+\\
+Proving #1 is easy. If $a = b$, then $|a - b| = 0 < \epsilon$ since $\epsilon > 0$.
+\\ \\
+Let's #2 by contradiction. Let's rephrase #2 to "If for every real number $\epsilon > 0$ it follows that $|a - b| < \epsilon$, then $a \neq b$.
+\\ \\
+Since $a \neq b$, let real number $\epsilon_0 = |a - b| > 0$. However, we assumed that $\epsilon > |a - b|$ for all real numbers, so $\epsilon_0 > |a - b|$. Since $\epsilon_0 = |a - b|$ and $\epsilon_0 > |a - b|$ cannot both exist, our original assumption that $a \neq b$ is faulty, so $a = b$. The proof is complete.
+
+\subsubsection*{\textit{\underline{Induction}}}
+
+Induction is another proof technique that uses the set $\mathbb{N}$(or with 0). So basically, induction is that if $S$ is some subset of $\mathbb{N}$ such that
+
+\begin{itemize}
+  \item $1 \in S$
+  \item If natural number $n \in S$, then $n + 1 \in S$
+\end{itemize}
+\\
+Then, this means $S = \mathbb{N}$.
+\\ \\
+Let us see an example of induction.
+\\ \\
+\begin{Example}
+\end{Example}
+\\
+Let $x_1 = 1$, and for each $n \in \mathbb{N}$ define
+\\ \\
+\[
+x_{n+1} = (1/2)x_n + 1
+\]
+\\ \\
+Then we know $x_2 = (1/2)*1 + 1 = \frac{3}{2}$, $x_3 = \frac{7}{4}$, and so on. We see that $x_1 \leq x_2 \leq x_3$. We will use induction to show that $x_n \leq x_{n+1}$ for all $n \in \mathbb{N}$.
+\\ \\
+For our base case $n = 1$, we have $x_1 = 1$ and $x_2 = \frac{3}{2} \Rightarrow x_1 \leq x_2$. Now we need to show if $x_n \leq x_{n+1}$, then $x_{n+1} \leq x_{n+2}$.
+\\ \\
+We can think of set $S$ as the set of natural numbers for which the claim $x_n \leq x_{n+1}$ is true. Since $1 \in S$, we need to show if $n \in S$, then $n+1 \in S$.
+\\ \\
+From our induction hypothesis $x_n \leq x_{n+1}$:
+\\ \\
+\[
+x_n \leq x_{n+1} \Rightarrow \frac{1}{2}x_n + 1 \leq \frac{1}{2}x_{n+1} + 1 \Rightarrow x_{n+1} \leq x_{n+2}
+\]
+\\ \\
+Thus, the claim is proven for all $n \in \mathbb{N}$ by induction.
+\end{document}
