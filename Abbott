@@ -21,6 +21,8 @@
 
 \newmdtheoremenv{theo}{Theorem}
 \newtheorem{Example}{Example}[section]
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Lemma}{Lemma}[section]
 
 \begin{document}
 
@@ -222,4 +224,90 @@ x_n \leq x_{n+1} \Rightarrow \frac{1}{2}x_n + 1 \leq \frac{1}{2}x_{n+1} + 1 \Rig
 \]
 \\ \\
 Thus, the claim is proven for all $n \in \mathbb{N}$ by induction.
+
+\subsection{The Axiom of Completeness}
+
+\subsubsection*{\textit{\underline{Initial Definition for $\mathbb{R}$}}}
+
+We know that $\mathbb{R}$ is a set containing $\mathbb{Q}$, and that $\mathbb{R}$ is a field. We also know that properties of ordering in $\mathbb{Q}$ extend to $\mathbb{R}$, such as "if $a < b$ and $c > 0$, then $ac < bc$", which makes $\mathbb{R}$ an ordered field.
+\\ \\
+Then now, we introduce the final assumption about $\mathbb{R}$.
+
+\begin{theo}
+\textbf{Axiom of Completeness}: Every nonempty set of real numbers that is bounded above has a least upper bound.
+\end{theo}
+
+\subsubsection*{\textit{\underline{Least Upper Bounds and Greatest Lower Bounds}}}
+
+\begin{Definition}
+A set $A \subseteq \mathbb{R}$ is bounded above if there exists a number $b \in \mathbb{R}$ such that $a \leq b$ for all $a \in A$, where $b$ is an upper bound for $A$. The set $A$ is bounded below if there exists a lower bound $l \in \mathbb{R}$ such that $l \leq a$ for all $a \in A$.
+\end{Definition}
+\\ \\
+\begin{Definition}
+A real number $s$ is the least upper bound for a set $A \subseteq \mathbb{R}$ if:
+
+\begin{itemize}
+  \item $s$ is an upper bound for $A$
+  \item If $b$ is any upper bound for $A$, $s \leq b$
+\end{itemize}
+
+\end{Definition}
+
+The least upper bound is called the supremum of set $A$, written as $s = sup\,A$. The greatest lower bound is called the infimum of $A$, written as $s = inf\,A$.
+\\ \\
+Know that while we can have multiple lower bounds, we can have only one greatest lower bound. The same applies to the least upper bound.
+\\ \\
+\begin{Example}
+\end{Example}
+\\ \\
+Let $A = \{\frac{1}{n}: n \in \mathbb{N}\} = \{1, \frac{1}{2}, \frac{1}{3}, ...\}$
+\\ \\
+We can see that set $A$ is bounded above and below. The least upper bound is $1$, so $sup\,A = 1$. Although we can't explicitly see the greatest lower bound (proof will come later), $inf\,A = 0$.
+\\ \\
+What we can learn from this is that $sup\,A$ and $inf\,A$ does not have to be an element of the set.
+\\ \\
+\begin{Definition}
+A real number $a_0$ is a maximum of the set $A$ if $a_0 \in A$ and $a_0 \geq a$ for all $a \in A$. A number $a_1$ is a minimum of set $A$ if $a_1 \in A$ and $a_1 \leq a$ for all $a \in A$.
+\end{Definition}
+\\ \\
+\begin{Example}
+\end{Example}
+\\ \\
+Consider the open interval $(0, 2) = \{x \in \mathbb{R}: 0 < x < 2\}$ and the closed interval $[0,2] = \{x \in \mathbb{R}: 0 \leq x \leq 2\}$.
+\\ \\
+Both sets are shown to have the same least upper bound, which is 2. However, only one of the sets contain a maximum. $(0, 2)$ does not have a max because $2 \notin (0, 2)$. Thus, although the supremum may exist, the maximum does not. However, if the maximum exists, then so does the supremum.
+\\ \\
+Now let's go back to the \textbf{Axiom of Completeness} (AoC). An axiom is an accepted assumption, with no need of a proof. It should be that elementary and fundamental. Let's see why AoC does not apply to $\mathbb{Q}$.
+\\ \\
+\begin{Example}
+\end{Example}
+\\ \\
+Consider the set $S = \{r \in \mathbb{Q}: r^2 < 2\}$.
+\\ \\
+This set is bounded above. However, does it have a $sup\,A$? In the world of $\mathbb{R}$, $sup\,A = \sqrt{2}$, but $\sqrt{2} \notin \mathbb{Q}$. We could try $\frac{142}{100}$, but $b = \frac{1415}{1000}$ is even smaller, and we can find even smaller ones, because $\sqrt{2}$ has infinite digits. Thus, AoC does not apply the $\mathbb{Q}$.
+\\ \\
+Now lets see some algebraic properties of the supremum.
+\\ \\
+\begin{Example}
+\end{Example}
+\\ \\
+Let $A \subseteq \mathbb{R}$ be nonempty and bounded above, and let $c \in \mathbb{R}$. Define $c + A$ by $c+A = \{c+A: a \in A\}$.
+\\ \\
+Then, $sup(c+A) = c+sup\,A$.
+\\ \\
+To verify this, we go back to \textbf{Definition 1.2}. If we set $s = sup\,A$, then $a \leq s$ for all $a \in A$, implying $c+a \leq c+s$ for all $a \in A$. Thus, $c+s$ is an upper bound for $c+A$, satisfying condition 1.
+\\ \\
+Because $s$ is the least upper bound of $A$, $s \leq b-c \Rightarrow s+c \leq b$. Thus, condition 2 is proven, and we know that $sup(c+A) = c+sup\,A$. 
+\\ \\
+We can use an alternate method to prove condition 2.
+\\ \\
+\begin{Lemma}
+Assume $s \in \mathbb{R}$ is an upper bound for a set $A \subseteq \mathbb{R}$. Then, $s = sup\,A$ iff for all $\epsilon > 0$, there exists an element $a \in A$ satisfying $s - \epsilon < a$.
+\end{Lemma}
+\\ \\
+Since this is an iff, we must prove both sides.
+\\ \\
+($\Rightarrow$): Assume $s=sup\,A$ and consider $s-\epsilon$, where $\epsilon > 0$. Thus, because $s-\epsilon < s$, $s-\epsilon$ is not an upper bound for $A$. Thus, there exists some $a \in A$ such that $s-\epsilon < a$.
+\\ \\
+($\Leftarrow$): Now assume $s$ is an upper bound where no matter what $\epsilon > 0$ is, $s-\epsilon$ is no longer an upper bound for $A$. Thus, if number $b < S$, $b$ is not an upper bound. Thus, if $b$ is an upper bound of $A$, then $s \leq b$, and thus $sup\,A = s$.
 \end{document}
