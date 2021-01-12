@@ -27,7 +27,7 @@
 \begin{document}
 
 \maketitle
-
+\fontsize{10pt}{14pt}\selectfont
 % Abstract
 \begin{abstract}
     These are the notes taken from the book \textit{Understanding Analysis} by Stephen Abbott.
@@ -73,6 +73,7 @@ However, as shown with $\sqrt{2}$, not every number is within $\mathbb{Q}$. Give
 \\ \\
 In a loose description of $\mathbb{R}$, it is basically the result after filling the "gaps" (irrationals) in the $\mathbb{Q}$ number line. But what do we know about irrationals? Do they behave differently? Do they have a pattern? We will come to know the answer.
 
+\newpage
 \subsection{Some Preliminaries}
 
 \subsubsection*{\textit{\underline{Sets}}}
@@ -225,6 +226,7 @@ x_n \leq x_{n+1} \Rightarrow \frac{1}{2}x_n + 1 \leq \frac{1}{2}x_{n+1} + 1 \Rig
 \\ \\
 Thus, the claim is proven for all $n \in \mathbb{N}$ by induction.
 
+\newpage
 \subsection{The Axiom of Completeness}
 
 \subsubsection*{\textit{\underline{Initial Definition for $\mathbb{R}$}}}
@@ -310,4 +312,125 @@ Since this is an iff, we must prove both sides.
 ($\Rightarrow$): Assume $s=sup\,A$ and consider $s-\epsilon$, where $\epsilon > 0$. Thus, because $s-\epsilon < s$, $s-\epsilon$ is not an upper bound for $A$. Thus, there exists some $a \in A$ such that $s-\epsilon < a$.
 \\ \\
 ($\Leftarrow$): Now assume $s$ is an upper bound where no matter what $\epsilon > 0$ is, $s-\epsilon$ is no longer an upper bound for $A$. Thus, if number $b < S$, $b$ is not an upper bound. Thus, if $b$ is an upper bound of $A$, then $s \leq b$, and thus $sup\,A = s$.
+
+\newpage
+\subsection{Consequences of Completeness}
+
+We will now mathematically express that the real number line has no gaps as a result of AoC.
+\\ 
+\begin{theo}
+\textbf{(Nested Interval Property):} For each $n \in \mathbb{N}$, assume we are given a closed interval $I_n = [a_n, b_n] = \{x \in \mathbb{R}: a_n \leq x \leq b_n\}$. Also assume that each $I_n$ contains $I_{n+1}$. Then, the resulting nested sequence of closed intervals $I_1 \supseteq I_2 \supseteq ...$ has a nonempty intersection, aka $\bigcap_{n=1}^{\infty} I_{n} \neq \emptyset$.
+\end{theo}
+
+The proof will use AoC in order to produce on real number $x$ where $x \in I_n$ for every $n \in \mathbb{N}$.
+\\ \\
+Consider the set $A = \{a_n: n \in \mathbb{N}\}$, which contains the left-hand endpoints of the intervals.
+\\ \\
+\includegraphics[width=5in]{lowerboundline.PNG}
+\\
+Since the intervals are nested, every $b_n$ serves as an upper bound of $A$. Thus, we can set $x = sup\,A$.
+\\ \\
+Now consider $I_n = [a_n, b_n]$. Since $x = sup\,A$, $a_n \leq x$, and since $b_n$ is an upper bound of $A$, it follows that $x \leq b_n$. Thus, we get $a_n \leq x \leq b_n$, meaning $x \in I_n$ for all $n \in \mathbb{N}$. Thus, $\bigcap_{n=1}^{\infty} I_n \neq \emptyset$.
+\\ \\
+\subsubsection*{\textit{\underline{The Density of $\mathbb{Q}$ in $\mathbb{R}$}}}
+
+We know that $\mathbb{Q}$ is an extension of $\mathbb{N}$, and $\mathbb{R}$ is an extension of $\mathbb{Q}$. Now, let's how $\mathbb{N}$ and $\mathbb{Q}$ operates inside $\mathbb{R}$.
+\\
+\begin{theo}
+\textbf{(Archimedean Property):}
+\begin{itemize}
+    \item Given any number $x \in \mathbb{R}$, there exists an $n \in \mathbb{N}$ such that $n > x$. 
+    \item Given any real number $y > 0$, there exists an $n \in \mathbb{N}$ such that $\frac{1}{n} < y$.
+\end{itemize}
+\end{theo}
+
+Part 1 states that $\mathbb{N}$ is not bounded above. Now, assume $\mathbb{N}$ \underline{is} bounded above. Then by AoC, $\mathbb{N}$ should have a least upper bound, we we'll call it $a = sup\,\mathbb{N}$. Then, if we consider $a-1$, there is no longer an upper bound by \textbf{Lemma 1.1} and thus there exists an $n \in \mathbb{N}$ such that $a-1 < n$.
+\\ \\
+However, this means $a < n+1$, and since $n+1 \in \mathbb{N}$, $a$ is not the supremum of $\mathbb{N}$, a contradiction. Thus, $\mathbb{N}$ is not bounded above.
+\\ \\
+Since part 1 is proven, we can set $x = \frac{1}{y}$ and rearrange $n > x$ to $n > \frac{1}{y} \Rightarrow y > \frac{1}{n}$, proving part 2.
+\\ \\
+This Archimedean Property will be key in describing how $\mathbb{Q}$ fits inside $\mathbb{R}$.
+\\ \\
+\begin{theo}
+\textbf{(Density of $\mathbb{Q}$ in $\mathbb{R}$):} For every two real numbers $a$ and $b$ with $a < b$, there exists an $r \in \mathbb{Q}$ such that $a < r < b$.
+\end{theo}
+\\
+Let $m, n \in \mathbb{N}$, and rewrite the statement to:
+\\ \\
+(1) \[a < \frac{m}{n} < b\]
+\\ 
+Now choose a denominator large enough such that increments in $\frac{1}{n}$ are too close to step over the interval $(a, b)$.
+\\ \\
+Then, with the Archimedean Property, we can choose a large enough $n \in \mathbb{N}$ such that:
+\\ \\
+(2) \[\frac{1}{n} < b - a\]
+\\
+(1) is equal to $na < m < nb$. Since $n$ is already chosen, we should choose $m$ to be the smallest integer great than $na$. In other words:
+\\ 
+\[m - 1\stackrel{\text{(3)}}{\leq} na \stackrel{\text{(4)}}{<} m\]
+\\
+We can see that (4) gives $a < \frac{m}{n}$. Now using (2), we get $a < b - \frac{1}{n}$, and can use (3) to write:
+\\
+\begin{equation*} 
+\begin{split}
+m & \leq na + 1 \\
+ & < n(b - \frac{1}{n}) + 1 \\
+ & = nb
+\end{split}
+\end{equation*}
+\\
+Then since $m < nb$ implies $\frac{m}{n} < b$, $a \leq \frac{m}{n} < b$. This means $\mathbb{Q}$ is dense in $\mathbb{R}$. We can also show that irrational numbers are dense in $\mathbb{R}$ as well.
+\\ \\
+Let $a < b$ be any two real numbers. We will show that an irrational number $t$ exists such that $a < t < b$.
+\\ \\
+Consider $a - \sqrt{2}$ and $b - \sqrt{2}$. Then by the Rational Density Theorem, there is a $r \in \mathbb{Q}$ such that $a - \sqrt{2} < r < b - \sqrt{2}$.
+\\ \\
+Then, by adding $\sqrt{2}$, $a < r + \sqrt{2} < b$, and since $r \in \mathbb{Q}$ and $\sqrt{2}$ is irrational, $r + \sqrt{2}$ is irrational. Thus, $a < t < b$.
+\\ \\
+\subsubsection*{\textit{\underline{The Existence of Square Roots}}}
+
+Consider the set $T = \{t \in \mathbb{R}: t^2 < 2\}$, and set $\alpha = sup \,T$. We will prove that $\alpha^2 = 2$ by showing $\alpha^2 < 2$ and $\alpha^2 > 2$ are not possible. More specifically:
+
+\begin{itemize}
+    \item We prove that $\alpha^2 < 2$ violates the fact that $\alpha$ is an upper bound for $T$
+    \item We prove that $\alpha^2 > 2$ violates the fact that $\alpha = sup\,T$
+\end{itemize}
+\\
+We first assume that $\alpha^2 < 2$, and we will search for an element of $T$ larger than $\alpha$.
+\\
+\begin{equation*} 
+\begin{split}
+(\alpha + \frac{1}{n})^2 & = \alpha^2 + \frac{2\alpha}{n} + \frac{1}{n^2} \\
+ & < \alpha^2 + \frac{2\alpha}{n} + \frac{1}{n} \\
+ & = \alpha^2 + \frac{2\alpha + 1}{n}
+\end{split}
+\end{equation*}
+\\
+But if we assume that $\alpha^2 < 2$, then $\frac{2\alpha+1}{n}$ must be sufficiently small enough for $\alpha^2 + \frac{2\alpha+1}{n} < 2$. For that, we should choose $n_0 \in \mathbb{N}$ large enough such that $\frac{1}{n_0} < \frac{2-\alpha^2}{2\alpha + 1}$.
+\\ \\
+Thus, $\frac{2\alpha+1}{n_0} < 2 - \alpha^2$, meaning $(\alpha + \frac{1}{n_0})^2 < \alpha^2 + (2 - \alpha^2) = 2$. Since $\frac{a+1}{n_0} \in T$, $\alpha$ is not an upper bound for $T$. So we now know that $\alpha^2 < 2$ is false.
+\\ \\
+Now assume $\alpha^2 > 2$. This time, we write:
+\\
+\begin{equation*} 
+\begin{split}
+(\alpha + \frac{1}{n})^2 & = \alpha^2 + \frac{2\alpha}{n} + \frac{1}{n^2} \\
+ & > \alpha^2 - \frac{2\alpha}{n}  
+\end{split}
+\end{equation*}
+\\
+Since $\alpha^2 > 2$, we should make $n_0$ large enough such that $\alpha^2 - \frac{2\alpha}{n_0} \geq 2$, so $n_0 > \frac{2\alpha}{\alpha^2 - 2}$.
+\\
+\begin{equation*} 
+\begin{split}
+\alpha^2 & > (\alpha - \frac{1}{n})^2 \\
+ & = \alpha^2 + \frac{2\alpha}{n} + \frac{1}{n^2} \\
+ & > \alpha^2 - \frac{2\alpha}{n} \\
+ & > \alpha^2 - (\alpha^2 - 2) \\
+ & = 2
+\end{split}
+\end{equation*}
+\\
+Thus, since $(\alpha - \frac{1}{n})^2$ is also an upper bound for $T$ and $\alpha^2 > (\alpha - \frac{1}{n})^2 > 2$, $\alpha^2 = sup\,T$. Therefore, $\alpha^2 = 2$.
 \end{document}
